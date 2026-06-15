@@ -11,7 +11,7 @@ final class Config
     public const LOGO = 'assets/img/xegonex.png';
     public const PAGE_TITLE = 'XegoNexStudio — Студия разработки в сфере Minecraft';
     public const COMPLETED_WORKS = 48;
-    public const SITE_URL = 'https://xegonexstudio.github.io/xegonexstudio';
+    public const SITE_URL = 'https://xegonexstudio.github.io';
 
     public static function absoluteUrl(string $path): string
     {
