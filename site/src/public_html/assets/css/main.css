@@ -2214,6 +2214,34 @@ main {
   }
 }
 
+@media (min-width: 769px) {
+  .spec-meta {
+    align-items: center;
+  }
+
+  .spec-meta__item:not(.spec-meta__item--download) {
+    flex: 0 0 auto;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .spec-meta__item:not(.spec-meta__item--download) .spec-meta__head {
+    justify-content: center;
+  }
+
+  .spec-meta__item:not(.spec-meta__item--download) .spec-meta__body {
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .spec-meta__item:not(.spec-meta__item--download) .spec-meta__value {
+    word-break: normal;
+  }
+}
+
 @media (max-width: 768px) {
   .spec-gallery__grid {
     grid-template-columns: 1fr;
