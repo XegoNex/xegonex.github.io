@@ -132,35 +132,28 @@ final class XegoNexSpecSite
 
     private function buildHero(): string
     {
-        $logo = XegoNexSpecConfig::asset(XegoNexSpecConfig::LOGO);
+        $studioLogo = XegoNexSpecConfig::asset(Config::LOGO);
         $hero = new HtmlBuilder();
-        $hero->tag('section', ['class' => 'spec-hero section'], (new HtmlBuilder())->tag('div', ['class' => 'container spec-hero__wrap'], implode('', [
-            (new HtmlBuilder())->tag('a', [
-                'href' => XegoNexSpecConfig::HOME_URL,
-                'class' => 'spec-exit reveal',
-            ], implode('', [
-                (new HtmlBuilder())->tag('span', ['class' => 'spec-exit__icon', 'aria-hidden' => 'true'])->render(),
-                (new HtmlBuilder())->tag('span', ['class' => 'spec-exit__text'], 'Выйти на главную страницу сайта')->render(),
-            ]))->render(),
-            (new HtmlBuilder())->tag('div', ['class' => 'spec-hero__stage reveal'], implode('', [
-                (new HtmlBuilder())->tag('div', ['class' => 'spec-hero__glow', 'aria-hidden' => 'true'])->render(),
-                (new HtmlBuilder())->tag('div', ['class' => 'spec-hero__ring spec-hero__ring--outer'])->render(),
-                (new HtmlBuilder())->tag('div', ['class' => 'spec-hero__ring spec-hero__ring--inner'])->render(),
-                (new HtmlBuilder())->tag('div', ['class' => 'spec-hero__spark spec-hero__spark--a', 'aria-hidden' => 'true'])->render(),
-                (new HtmlBuilder())->tag('div', ['class' => 'spec-hero__spark spec-hero__spark--b', 'aria-hidden' => 'true'])->render(),
+        $hero->tag('section', ['class' => 'spec-hero section'], (new HtmlBuilder())->tag('div', ['class' => 'container'], (new HtmlBuilder())->tag('div', ['class' => 'spec-hero__bar reveal'], implode('', [
+            (new HtmlBuilder())->tag('div', ['class' => 'hero__logo-wrap spec-hero__logo-wrap'], implode('', [
+                (new HtmlBuilder())->tag('div', ['class' => 'hero__ring hero__ring--outer'])->render(),
+                (new HtmlBuilder())->tag('div', ['class' => 'hero__ring hero__ring--inner'])->render(),
                 (new HtmlBuilder())->tag('img', [
-                    'src' => $logo,
-                    'alt' => XegoNexSpecConfig::PLUGIN_NAME,
-                    'class' => 'spec-hero__logo',
-                    'width' => '280',
-                    'height' => '280',
+                    'src' => $studioLogo,
+                    'alt' => Config::SITE_NAME,
+                    'class' => 'hero__logo',
+                    'width' => '320',
+                    'height' => '320',
                 ], null, true)->render(),
             ]))->render(),
-            (new HtmlBuilder())->tag('p', ['class' => 'spec-hero__badge reveal reveal--delay'], implode('', [
-                (new HtmlBuilder())->tag('span', ['class' => 'spec-hero__badge-dot'])->render(),
-                'Бесплатный плагин от XegoNexStudio',
+            (new HtmlBuilder())->tag('a', [
+                'href' => XegoNexSpecConfig::HOME_URL,
+                'class' => 'spec-home-btn',
+            ], implode('', [
+                (new HtmlBuilder())->tag('span', ['class' => 'spec-home-btn__icon', 'aria-hidden' => 'true'])->render(),
+                (new HtmlBuilder())->tag('span', ['class' => 'spec-home-btn__text'], 'Вернуться в главное меню сайта')->render(),
             ]))->render(),
-        ]))->render());
+        ]))->render())->render());
         return $hero->render();
     }
 
@@ -219,22 +212,26 @@ final class XegoNexSpecSite
         $items = [
             ['emoji' => '💰', 'label' => 'ЦЕНА', 'value' => 'БЕСПЛАТНО'],
             ['emoji' => '💠', 'label' => 'Версия', 'value' => '1.16.5 - 1.21.1 paper/spigot'],
-            ['emoji' => '🍕', 'label' => 'Скачать', 'value' => 'Google Drive', 'href' => XegoNexSpecConfig::DOWNLOAD_URL],
+            ['emoji' => '🍕', 'label' => 'Скачать', 'value' => XegoNexSpecConfig::DOWNLOAD_URL, 'href' => XegoNexSpecConfig::DOWNLOAD_URL],
         ];
 
         $markup = '';
         foreach ($items as $index => $item) {
+            $value = isset($item['href'])
+                ? (new HtmlBuilder())->tag('a', [
+                    'href' => $item['href'],
+                    'class' => 'spec-meta__value spec-meta__link',
+                    'target' => '_blank',
+                    'rel' => 'noopener noreferrer',
+                ], $item['value'])->render()
+                : (new HtmlBuilder())->tag('span', ['class' => 'spec-meta__value'], $item['value'])->render();
+
             $inner = implode('', [
-                (new HtmlBuilder())->tag('span', ['class' => 'spec-meta__emoji'], $item['emoji'])->render(),
-                (new HtmlBuilder())->tag('span', ['class' => 'spec-meta__label'], $item['label'])->render(),
-                isset($item['href'])
-                    ? (new HtmlBuilder())->tag('a', [
-                        'href' => $item['href'],
-                        'class' => 'spec-meta__value spec-meta__link',
-                        'target' => '_blank',
-                        'rel' => 'noopener noreferrer',
-                    ], $item['value'])->render()
-                    : (new HtmlBuilder())->tag('span', ['class' => 'spec-meta__value'], $item['value'])->render(),
+                (new HtmlBuilder())->tag('div', ['class' => 'spec-meta__head'], implode('', [
+                    (new HtmlBuilder())->tag('span', ['class' => 'spec-meta__emoji'], $item['emoji'])->render(),
+                    (new HtmlBuilder())->tag('span', ['class' => 'spec-meta__label'], $item['label'])->render(),
+                ]))->render(),
+                (new HtmlBuilder())->tag('div', ['class' => 'spec-meta__body'], $value)->render(),
             ]);
 
             $markup .= (new HtmlBuilder())->tag('div', [
