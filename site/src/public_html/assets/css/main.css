@@ -2240,6 +2240,16 @@ main {
   .spec-meta__item:not(.spec-meta__item--download) .spec-meta__value {
     word-break: normal;
   }
+
+  .spec-meta__item--download {
+    flex: 0 0 auto;
+    width: fit-content;
+  }
+
+  .spec-meta__item--download .spec-meta__download {
+    width: auto;
+    flex: 0 0 auto;
+  }
 }
 
 @media (max-width: 768px) {
