@@ -218,11 +218,11 @@ final class XegoNexSpecSite
         $markup = '';
         foreach ($items as $index => $item) {
             if (isset($item['href'])) {
-                $inner = (new HtmlBuilder())->tag('div', ['class' => 'spec-meta__head'], implode('', [
-                    (new HtmlBuilder())->tag('span', ['class' => 'spec-meta__emoji'], $item['emoji'])->render(),
+                $inner = (new HtmlBuilder())->tag('div', ['class' => 'spec-meta__download'], implode('', [
+                    (new HtmlBuilder())->tag('span', ['class' => 'spec-meta__download-emoji'], $item['emoji'])->render(),
                     (new HtmlBuilder())->tag('a', [
                         'href' => $item['href'],
-                        'class' => 'spec-meta__label spec-meta__link spec-meta__link--download',
+                        'class' => 'spec-meta__download-btn',
                         'target' => '_blank',
                         'rel' => 'noopener noreferrer',
                     ], $item['label'])->render(),

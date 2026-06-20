@@ -1896,6 +1896,7 @@ main {
 .spec-meta {
   display: flex;
   flex-wrap: wrap;
+  align-items: stretch;
   gap: 14px;
   margin: 28px 0;
 }
@@ -1959,30 +1960,68 @@ main {
   text-shadow: 0 0 20px var(--accent-glow);
 }
 
-.spec-meta__link--download {
+.spec-meta__item--download {
+  justify-content: center;
+  align-items: center;
+  padding: 20px 18px;
+}
+
+.spec-meta__download {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  flex: 1;
+  text-align: center;
+}
+
+.spec-meta__download-emoji {
+  font-size: 2.35rem;
+  line-height: 1;
+}
+
+.spec-meta__download-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 148px;
+  padding: 12px 26px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--accent);
   text-decoration: none;
+  border: 1px solid rgba(61, 255, 154, 0.45);
+  border-radius: var(--radius-sm);
+  background: rgba(61, 255, 154, 0.1);
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s var(--ease-out);
   animation: spec-download-pulse 1.6s ease-in-out infinite;
 }
 
-.spec-meta__link--download:hover {
+.spec-meta__download-btn:hover {
   color: #7dffc4;
+  background: rgba(61, 255, 154, 0.18);
+  border-color: rgba(125, 255, 196, 0.65);
   animation-play-state: paused;
-}
-
-.spec-meta__item--download {
-  justify-content: center;
+  transform: scale(1.04);
 }
 
 @keyframes spec-download-pulse {
   0%, 100% {
     opacity: 1;
-    text-shadow: 0 0 14px var(--accent-glow);
+    box-shadow: 0 0 20px var(--accent-dim);
+    border-color: rgba(61, 255, 154, 0.6);
   }
 
   50% {
-    opacity: 0.45;
-    text-shadow: none;
+    opacity: 0.65;
+    box-shadow: none;
+    border-color: rgba(61, 255, 154, 0.25);
   }
 }
 
