@@ -212,30 +212,35 @@ final class XegoNexSpecSite
         $items = [
             ['emoji' => '💰', 'label' => 'ЦЕНА', 'value' => 'БЕСПЛАТНО'],
             ['emoji' => '💠', 'label' => 'Версия', 'value' => '1.16.5 - 1.21.1 paper/spigot'],
-            ['emoji' => '🍕', 'label' => 'Скачать', 'value' => XegoNexSpecConfig::DOWNLOAD_URL, 'href' => XegoNexSpecConfig::DOWNLOAD_URL],
+            ['emoji' => '🍕', 'label' => 'Скачать', 'href' => XegoNexSpecConfig::DOWNLOAD_URL],
         ];
 
         $markup = '';
         foreach ($items as $index => $item) {
-            $value = isset($item['href'])
-                ? (new HtmlBuilder())->tag('a', [
-                    'href' => $item['href'],
-                    'class' => 'spec-meta__value spec-meta__link',
-                    'target' => '_blank',
-                    'rel' => 'noopener noreferrer',
-                ], $item['value'])->render()
-                : (new HtmlBuilder())->tag('span', ['class' => 'spec-meta__value'], $item['value'])->render();
-
-            $inner = implode('', [
-                (new HtmlBuilder())->tag('div', ['class' => 'spec-meta__head'], implode('', [
+            if (isset($item['href'])) {
+                $inner = (new HtmlBuilder())->tag('div', ['class' => 'spec-meta__head'], implode('', [
                     (new HtmlBuilder())->tag('span', ['class' => 'spec-meta__emoji'], $item['emoji'])->render(),
-                    (new HtmlBuilder())->tag('span', ['class' => 'spec-meta__label'], $item['label'])->render(),
-                ]))->render(),
-                (new HtmlBuilder())->tag('div', ['class' => 'spec-meta__body'], $value)->render(),
-            ]);
+                    (new HtmlBuilder())->tag('a', [
+                        'href' => $item['href'],
+                        'class' => 'spec-meta__label spec-meta__link spec-meta__link--download',
+                        'target' => '_blank',
+                        'rel' => 'noopener noreferrer',
+                    ], $item['label'])->render(),
+                ]))->render();
+                $itemClass = 'spec-meta__item spec-meta__item--download reveal';
+            } else {
+                $inner = implode('', [
+                    (new HtmlBuilder())->tag('div', ['class' => 'spec-meta__head'], implode('', [
+                        (new HtmlBuilder())->tag('span', ['class' => 'spec-meta__emoji'], $item['emoji'])->render(),
+                        (new HtmlBuilder())->tag('span', ['class' => 'spec-meta__label'], $item['label'])->render(),
+                    ]))->render(),
+                    (new HtmlBuilder())->tag('div', ['class' => 'spec-meta__body'], (new HtmlBuilder())->tag('span', ['class' => 'spec-meta__value'], $item['value'])->render())->render(),
+                ]);
+                $itemClass = 'spec-meta__item reveal';
+            }
 
             $markup .= (new HtmlBuilder())->tag('div', [
-                'class' => 'spec-meta__item reveal',
+                'class' => $itemClass,
                 'style' => '--reveal-delay:' . ($index * 90) . 'ms',
             ], $inner)->render();
         }

@@ -1959,6 +1959,33 @@ main {
   text-shadow: 0 0 20px var(--accent-glow);
 }
 
+.spec-meta__link--download {
+  color: var(--accent);
+  text-decoration: none;
+  animation: spec-download-pulse 1.6s ease-in-out infinite;
+}
+
+.spec-meta__link--download:hover {
+  color: #7dffc4;
+  animation-play-state: paused;
+}
+
+.spec-meta__item--download {
+  justify-content: center;
+}
+
+@keyframes spec-download-pulse {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 14px var(--accent-glow);
+  }
+
+  50% {
+    opacity: 0.45;
+    text-shadow: none;
+  }
+}
+
 .spec-list {
   list-style: none;
   display: grid;
