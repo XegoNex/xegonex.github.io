@@ -377,16 +377,49 @@ class WorksCounter {
   }
 }
 
+class SpecPage {
+  constructor(root) {
+    this.root = root;
+    this.frame = root.querySelector('.spec-frame');
+    this.bind();
+  }
+
+  bind() {
+    new Navigation();
+
+    if (!this.frame) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          this.frame.classList.toggle('is-lit', entry.isIntersecting);
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(this.frame);
+  }
+}
+
 class App {
   constructor() {
+    this.specRoot = document.querySelector('[data-spec-page]');
     this.init();
   }
 
   init() {
     document.body.classList.add('is-ready');
     new ScrollReveal();
-    new Navigation();
     new CursorGlow();
+
+    if (this.specRoot) {
+      new SpecPage(this.specRoot);
+      new ProjectGalleryLightbox();
+      return;
+    }
+
+    new Navigation();
     document.querySelectorAll('[data-services-tabs]').forEach((root) => new ServiceTabs(root));
     document.querySelectorAll('[data-flow]').forEach((root) => new FlowStrip(root));
     document.querySelectorAll('[data-works-counter]').forEach((root) => new WorksCounter(root));
