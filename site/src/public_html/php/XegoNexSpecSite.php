@@ -146,12 +146,21 @@ final class XegoNexSpecSite
                     'height' => '320',
                 ], null, true)->render(),
             ]))->render(),
-            (new HtmlBuilder())->tag('a', [
-                'href' => XegoNexSpecConfig::HOME_URL,
-                'class' => 'spec-home-btn',
-            ], implode('', [
-                (new HtmlBuilder())->tag('span', ['class' => 'spec-home-btn__icon', 'aria-hidden' => 'true'])->render(),
-                (new HtmlBuilder())->tag('span', ['class' => 'spec-home-btn__text'], 'Вернуться в главное меню сайта')->render(),
+            (new HtmlBuilder())->tag('div', ['class' => 'spec-hero__aside'], implode('', [
+                (new HtmlBuilder())->tag('a', [
+                    'href' => XegoNexSpecConfig::HOME_URL,
+                    'class' => 'spec-home-btn',
+                ], implode('', [
+                    (new HtmlBuilder())->tag('span', ['class' => 'spec-home-btn__icon', 'aria-hidden' => 'true'])->render(),
+                    (new HtmlBuilder())->tag('span', ['class' => 'spec-home-btn__text'], 'Вернуться в главное меню сайта')->render(),
+                ]))->render(),
+                (new HtmlBuilder())->tag('a', [
+                    'href' => '#spec-content',
+                    'class' => 'spec-scroll-hint',
+                ], implode('', [
+                    (new HtmlBuilder())->tag('span', ['class' => 'spec-scroll-hint__text'], 'Листай вниз')->render(),
+                    (new HtmlBuilder())->tag('span', ['class' => 'spec-scroll-hint__arrow', 'aria-hidden' => 'true'])->render(),
+                ]))->render(),
             ]))->render(),
         ]))->render())->render());
         return $hero->render();
@@ -204,7 +213,7 @@ final class XegoNexSpecSite
             ]))->render(),
         ]))->render();
 
-        return (new HtmlBuilder())->tag('section', ['class' => 'spec-content section'], (new HtmlBuilder())->tag('div', ['class' => 'container'], $frame))->render();
+        return (new HtmlBuilder())->tag('section', ['class' => 'spec-content section', 'id' => 'spec-content'], (new HtmlBuilder())->tag('div', ['class' => 'container'], $frame))->render();
     }
 
     private function buildMeta(): string
